@@ -26,6 +26,18 @@ router.get('/articles', (req, res) => {
   });
 });
 
+// read by id
+router.get('/articles/:id', (req,res)=>{
+  const sql = 'SELECT * FROM article WHERE id = ?'
+
+  db.query(sql, req.params.id, (err, results)=>{
+    if(err){
+      return res.status(500),json({message:'id yang dimasukan salah atau tidak ada'})
+    };
+    res.json(results)
+  })
+})
+
 // Update
 router.put('/update/:id', (req, res) => {
   const data = {...req.body};
